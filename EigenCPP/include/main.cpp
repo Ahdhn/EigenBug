@@ -1,3 +1,4 @@
+#include "Eigen/OrderingMethods"
 #include "Eigen/SparseCholesky"
 
 #include <iostream>
@@ -15,7 +16,10 @@ int main(int argc, char** argv)
 
     A.setFromTriplets(triplets.begin(), triplets.end());
 
-    Eigen::SimplicialLDLT<Eigen::SparseMatrix<float>> solver;
+    Eigen::SimplicialLDLT<Eigen::SparseMatrix<float>,
+                          Eigen::UpLoType::Lower,
+                          Eigen::AMDOrdering<int>>
+        solver;
 
     solver.compute(A);
 
